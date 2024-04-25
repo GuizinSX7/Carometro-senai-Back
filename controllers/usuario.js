@@ -11,12 +11,12 @@ exports.getById = async (req, res) => {
 };
 
 exports.createUsuario = async (req, res) => {
-    const usuarioCadastrado = await Usuario.findOne({cpf : req.body.cpf});
+    const usuarioCadastrado = await Usuario.findOne({ where: {cpf : req.body.cpf}});
     if (usuarioCadastrado) {
         return res.send('Já existe um usuário cadastrado neste CPF.')
     }
 
     const usuarioCriado = await Usuario.create(req.body);
     console.log("usuarioCriado", usuarioCriado);
-    return res.send("oi")
+    return res.send("Deu certo")
 };
