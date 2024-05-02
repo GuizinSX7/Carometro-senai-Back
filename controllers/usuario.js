@@ -5,7 +5,7 @@ exports.getAll = async (req, res) => {
 };
 
 exports.getById = async (req, res) => {
-    const idDoParam = req.params.id;
+    const idDoParam = req.params.id;ljsfvpo8aorsgbkfjçAEFYHGUIObefiohgA78EGF
     const usuarioEncontrado = await  Usuario.findOne({idUsarios: idDoParam});
     res.json(usuarioEncontrado)
 };
