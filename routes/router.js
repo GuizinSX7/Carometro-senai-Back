@@ -21,4 +21,6 @@ router.get('/typesuser/:id', TypeUser.getById);
 
 router.post('/typesuser', TypeUser.createTypeUser);
 
+router.put('/turmas/:codigo', turmasController.updateController);
+
 module.exports = router;
