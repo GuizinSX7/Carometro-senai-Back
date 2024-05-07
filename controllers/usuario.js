@@ -22,8 +22,6 @@ exports.createUsuario = async (req, res) => {
 };
 
 exports.updateControllerNome = async (req, res) => {
-    const tipoUsuario = req.params.Tipos_Usuarios_idTipos_Usuarios;
-    const idUsers = req.params.idUsuarios;
     const cpfUser = req.params.cpf;
     try{
         const userMudar = await Usuario.findOne({where: {cpf: cpfUser}})
