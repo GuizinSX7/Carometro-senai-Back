@@ -5,7 +5,7 @@ exports.getAll = async (req, res) => {
 };
 
 exports.getById = async (req, res) => {
-    const idDoParam = req.params.id;ljsfvpo8aorsgbkfjçAEFYHGUIObefiohgA78EGF
+    const idDoParam = req.params.id;
     const usuarioEncontrado = await  Usuario.findOne({idUsarios: idDoParam});
     res.json(usuarioEncontrado)
 };
@@ -19,4 +19,37 @@ exports.createUsuario = async (req, res) => {
     const usuarioCriado = await Usuario.create(req.body);
     console.log("usuarioCriado", usuarioCriado);
     return res.send("Deu certo")
+};
+
+exports.updateControllerNome = async (req, res) => {
+    const tipoUsuario = req.params.Tipos_Usuarios_idTipos_Usuarios;
+    const idUsers = req.params.idUsuarios;
+    const cpfUser = req.params.cpf;
+    try{
+        const userMudar = await Usuario.findOne({where: {cpf: cpfUser}})
+
+        if(userMudar) {
+            delete req.body.cpf,
+            delete req.body.Tipos_Usuarios_idTipos_Usuarios,
+            delete req.body.idUsuarios;
+
+            const [numRowsUpdate] = await Usuario.update(req.body, {
+                where: {cpf: cpfUser}
+            });
+
+            if (numRowsUpdate > 0) {
+                const usuarioMudado = await Usuario.findOne({where: {cpf: cpfUser}});
+                return res.send({message: 'Usuário Atualizado com sucesso', usuarioatualizado: usuarioMudado});
+            }
+            else {
+                return res.send('Usuário encontrado, porem, sem novos dados para atualizar');
+            }
+        }
+        else{
+            return res.status(404).send("Não existe um usuário cadastrado com este cpf");
+        }
+    } catch (error){
+        consoler.error('Erro ao atualizar o usuário', error);
+        return res.status(500).send('Ocorreu um erro ao atualizar o usuário.');
+    }
 };

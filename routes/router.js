@@ -9,6 +9,8 @@ router.get('/usuario/:id', usuarioController.getById);
 
 router.post('/usuario', usuarioController.createUsuario);
 
+router.put('/usuario/:cpf', usuarioController.updateControllerNome);
+
 
 router.get('/turmas', turmasController.getAll);
 router.get('/turmas/:id', turmasController.getById);
