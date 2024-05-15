@@ -1,5 +1,5 @@
 const Turmas = require('../models/turmas');
-
+ 
 // Esta sessão está obtendo a tabela inteira
 exports.getAll = async (req, res) => {
     const turmas = await Turmas.findAll();
@@ -49,6 +49,6 @@ exports.updateController = async (req, res) => {
         }
     } catch (error){
         consoler.error('Erro ao atualizar turma', error);
-        return res.status(500).send('Ocorreu um erro ao atualizar a turma.')
+        return res.status(500).send('Ocorreu um erro ao atualizar a turma.');
     }
 };
