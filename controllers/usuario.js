@@ -25,7 +25,7 @@ exports.createUsuario = async (req, res) => {
         })
     }
     console.log("usuarioCriado", usuarioCriado);
-    return res.send("Deu certo");
+    return res.send("Usuário criado com sucesso");
 
 };
 
