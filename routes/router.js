@@ -11,6 +11,7 @@ router.post('/usuario', usuarioController.createUsuario);
 
 router.put('/usuario/:cpf', usuarioController.updateControllerNome);
 
+router.delete('/usuario/:cpf', usuarioController.deleteUser);
 
 router.get('/turmas', turmasController.getAll);
 router.get('/turmas/:id', turmasController.getById);

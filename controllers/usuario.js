@@ -26,8 +26,22 @@ exports.createUsuario = async (req, res) => {
     }
     console.log("usuarioCriado", usuarioCriado);
     return res.send("Usuário criado com sucesso");
-
 };
+
+exports.deleteUser = async (req, res) => {
+    const cpfUser = req.params.cpf;
+    const usuarioDeletado = await Usuario.findOne({ where: {cpf : cpfUser}});
+    if (usuarioDeletado) {
+        const deleteUsuario = await Usuario.destroy({where: {cpf: cpfUser}})
+        if (deleteUsuario) {
+            return res.send('Usuário deletado com sucesso!')
+        } else {
+            return res.send('Erro ao deletar usuário');
+        }
+    } else {
+        return res.status(404).send('Não existe um usuário com este cpf');
+    }
+}
 
 exports.updateControllerNome = async (req, res) => {
     const cpfUser = req.params.cpf;
