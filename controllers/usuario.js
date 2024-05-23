@@ -29,18 +29,36 @@ exports.createUsuario = async (req, res) => {
 };
 
 exports.deleteUser = async (req, res) => {
-    const cpfUser = req.params.cpf;
-    const usuarioDeletado = await Usuario.findOne({ where: {cpf : cpfUser}});
-    if (usuarioDeletado) {
-        const deleteUsuario = await Usuario.destroy({where: {cpf: cpfUser}})
-        if (deleteUsuario) {
-            return res.send('Usuário deletado com sucesso!')
-        } else {
-            return res.send('Erro ao deletar usuário');
+    try {
+        const {id} = req.params;
+        const usuario = await Usuario.findByPk(id);
+        if (!usuario) {
+            return res.status(404).send("Usuário não encontrado");
         }
-    } else {
-        return res.status(404).send('Não existe um usuário com este cpf');
+
+        const desvincular = await UsuariosTurmas.findOne({where: {Usuarios_idUsuarios: usuario.idUsuarios}});
+        if (desvincular) {
+            await desvincular.destroy();
+        }
+        await usuario.destroy();
+
+        return res.send('Usuário deletado com sucesso');
+    } catch (error) {
+        console.error('Usuário deletado com sucesso');
+        return res.status(500).send('Erro ao deletar usuário');
     }
+    // const cpfUser = req.params.cpf;
+    // const usuarioDeletado = await Usuario.findOne({ where: {cpf : cpfUser}});
+    // if (usuarioDeletado) {
+    //     const deleteUsuario = await Usuario.destroy({where: {cpf: cpfUser}})
+    //     if (deleteUsuario) {
+    //         return res.send('Usuário deletado com sucesso!')
+    //     } else {
+    //         return res.send('Erro ao deletar usuário');
+    //     }
+    // } else {
+    //     return res.status(404).send('Não existe um usuário com este cpf');
+    // }
 }
 
 exports.updateControllerNome = async (req, res) => {
